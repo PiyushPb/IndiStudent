@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Welcome to Flutter',
       theme: ThemeData(
           fontFamily: 'poppins', scaffoldBackgroundColor: Colors.white),
-      home: CreateUserFormPage(),
+      home: LoginPage(),
     );
   }
 }

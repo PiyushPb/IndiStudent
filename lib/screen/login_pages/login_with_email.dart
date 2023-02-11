@@ -63,7 +63,6 @@ class _LoginWithEmailPageState extends State<LoginWithEmailPage> {
                       children: [
                         SizedBox(
                           child: TextFormField(
-                            style: const TextStyle(color: Colors.white),
                             validator: validateEmail,
                             // ignore: prefer_const_constructors
                             decoration: InputDecoration(
