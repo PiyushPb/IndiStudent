@@ -106,7 +106,7 @@ class _LoginWithEmailPageState extends State<LoginWithEmailPage> {
                 height: 50.0,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Color.fromARGB(255, 7, 38, 53),
+                    // primary: Color.fromARGB(255, 7, 38, 53),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
