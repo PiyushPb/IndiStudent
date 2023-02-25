@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:indistudent/features/auth/controller/auth_controller.dart';
+import 'package:indistudent/core/features/auth/controller/auth_controller.dart';
 
 class SignInWithGoogleButton extends ConsumerWidget {
   const SignInWithGoogleButton({super.key});
 
-  void signInWithGoogle(WidgetRef ref) {
-    ref.read(AuthControllerProvider).signInWithGoogle();
+  void signInWithGoogle(BuildContext context, WidgetRef ref) {
+    ref.read(authControllerProvider.notifier).signInWithGoogle(context);
   }
 
   @override
@@ -18,7 +18,7 @@ class SignInWithGoogleButton extends ConsumerWidget {
       width: double.infinity,
       height: 50.0,
       child: OutlinedButton.icon(
-        onPressed: () => signInWithGoogle(ref),
+        onPressed: () => signInWithGoogle(context, ref),
         // ignore: prefer_const_constructors
         icon: Image.asset(
           'assets/images/google.png',
