@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:indistudent/repository/auth_repository.dart';
+import 'package:indistudent/features/auth/repository/auth_repository.dart';
 
 final AuthControllerProvider = Provider(
   (ref) => AuthController(
