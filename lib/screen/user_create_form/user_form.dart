@@ -28,33 +28,6 @@ class _CreateUserFormPageState extends State<CreateUserFormPage> {
                     style: TextStyle(fontSize: 20),
                   ),
                   const SizedBox(height: 20),
-                  Container(
-                    padding:
-                        const EdgeInsets.only(left: 15, right: 15, top: 15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color.fromARGB(255, 112, 140, 233),
-                      border: Border.all(
-                          width: 2, color: Color.fromARGB(255, 29, 72, 214)),
-                    ),
-                    child: Column(
-                      // ignore: prefer_const_literals_to_create_immutables
-                      children: [
-                        const Text(
-                          'NOTE: if you cant find your college name in the list, please contact us.',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            'Contact us',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
                   SizedBox(
                     child: TextFormField(
                       // ignore: prefer_const_constructors
@@ -101,6 +74,33 @@ class _CreateUserFormPageState extends State<CreateUserFormPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  Container(
+                    padding:
+                        const EdgeInsets.only(left: 15, right: 15, top: 15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color.fromARGB(255, 112, 140, 233),
+                      border: Border.all(
+                          width: 2, color: Color.fromARGB(255, 29, 72, 214)),
+                    ),
+                    child: Column(
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: [
+                        const Text(
+                          'NOTE: if you cant find your college name in the list, please contact us.',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            'Contact us',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                   SizedBox(
                     child: TextFormField(
                       minLines: 5,
@@ -118,7 +118,7 @@ class _CreateUserFormPageState extends State<CreateUserFormPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   SizedBox(
                     width: double.infinity,
                     height: 50.0,

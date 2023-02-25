@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:indistudent/common/sign_in_with_google_btn.dart';
 import 'package:indistudent/screen/login_pages/login_with_email.dart';
 
 class LoginPage extends StatefulWidget {
@@ -105,19 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: 10.0),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50.0,
-                      child: OutlinedButton.icon(
-                        onPressed: () {},
-                        // ignore: prefer_const_constructors
-                        icon: Image.asset(
-                          'assets/images/google.png',
-                          height: 24,
-                        ),
-                        label: Text('Sign in using Google'), // <-- Text
-                      ),
-                    ),
+                    const SignInWithGoogleButton(),
                   ],
                 ),
               ),
@@ -188,19 +177,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           const SizedBox(height: 10.0),
-          SizedBox(
-            width: double.infinity,
-            height: 50.0,
-            child: OutlinedButton.icon(
-              onPressed: () {},
-              // ignore: prefer_const_constructors
-              icon: Image.asset(
-                'assets/images/google.png',
-                height: 24,
-              ),
-              label: Text('Sign in using Google'), // <-- Text
-            ),
-          ),
+          const SignInWithGoogleButton(),
         ],
       ),
     );
