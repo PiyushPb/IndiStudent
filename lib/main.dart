@@ -13,6 +13,7 @@ import 'package:indistudent/screen/login.dart';
 import 'package:indistudent/screen/login_pages/email_sent.dart';
 import 'package:indistudent/screen/login_pages/login_with_email.dart';
 import 'package:indistudent/screen/user_create_form/user_form.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:routemaster/routemaster.dart';
 
 void main() async {
@@ -48,26 +49,32 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ref.watch(authStateChangeProvider).when(
-        data: (data) => MaterialApp.router(
-              title: 'Welcome to Flutter',
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                  fontFamily: 'poppins', scaffoldBackgroundColor: Colors.white),
-              routerDelegate: RoutemasterDelegate(routesBuilder: (context) {
-                if (data != null) {
-                  getData(ref, data);
-                  if (userModel != null) {
-                    return loggedInRoute;
-                  }
-                } else {
-                  return loggedOutRoute;
-                }
-                return landingPageRoute;
-              }),
-              routeInformationParser: const RoutemasterParser(),
-            ),
-        error: (error, StackTrace) => ErrorText(error: error.toString()),
-        loading: () => const Loader());
+    return ResponsiveSizer(
+      builder: (context, orientation, screenType) {
+        return ref.watch(authStateChangeProvider).when(
+            data: (data) => MaterialApp.router(
+                  title: 'Welcome to Flutter',
+                  debugShowCheckedModeBanner: false,
+                  theme: ThemeData(
+                      fontFamily: 'poppins',
+                      scaffoldBackgroundColor: Colors.white),
+                  routerDelegate: RoutemasterDelegate(routesBuilder: (context) {
+                    if (data != null) {
+                      getData(ref, data);
+                      if (userModel != null) {
+                        return loggedInRoute;
+                      }
+                    } else {
+                      return loggedOutRoute;
+                    }
+                    return landingPageRoute;
+                  }),
+                  routeInformationParser: const RoutemasterParser(),
+                ),
+            error: (error, StackTrace) => ErrorText(error: error.toString()),
+            loading: () => const Loader());
+      },
+      maxTabletWidth: 900, // Optional
+    );
   }
 }

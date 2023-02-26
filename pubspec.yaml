@@ -43,6 +43,8 @@ dependencies:
   flutter_riverpod: ^2.2.0
   fpdart: ^0.4.1
   routemaster: ^1.0.1
+  line_icons: ^2.0.1
+  responsive_sizer: ^3.1.1
   
 
 dev_dependencies:

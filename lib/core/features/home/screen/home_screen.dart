@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:indistudent/core/features/auth/controller/auth_controller.dart';
+import 'package:line_icons/line_icons.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -12,11 +13,10 @@ class HomeScreen extends ConsumerWidget {
     final user = ref.watch(userProvider);
     return Scaffold(
       body: SafeArea(
-          child: Container(
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,12 +35,10 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   Expanded(child: Container()),
                   IconButton(
-                    style: ButtonStyle(
-                      overlayColor:
-                          MaterialStateProperty.all(Colors.transparent),
-                    ),
-                    iconSize: 20,
-                    icon: const Icon(Icons.search),
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    iconSize: 25,
+                    icon: const Icon(LineIcons.facebookMessenger),
                     onPressed: () {
                       // ...
                     },
@@ -48,9 +46,36 @@ class HomeScreen extends ConsumerWidget {
                 ],
               ),
             ),
+            Container(
+                width: double.infinity,
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                // ignore: prefer_const_constructors
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: 60,
+                          width: 60,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.pink,
+                            // image: DecorationImage(
+                            //   image: NetworkImage(user!.photoURL!),
+                            //   fit: BoxFit.cover,
+                            // ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text('data'),
+                  ],
+                ),),
           ],
         ),
-      )),
+      ),
     );
   }
 }
