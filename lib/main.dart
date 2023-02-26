@@ -6,6 +6,7 @@ import 'package:indistudent/common/error_text.dart';
 import 'package:indistudent/common/loader.dart';
 import 'package:indistudent/core/features/auth/controller/auth_controller.dart';
 import 'package:indistudent/firebase_options.dart';
+import 'package:indistudent/landingpage.dart';
 import 'package:indistudent/models/user_mode.dart';
 import 'package:indistudent/router.dart';
 import 'package:indistudent/screen/login.dart';
@@ -50,6 +51,7 @@ class _MyAppState extends ConsumerState<MyApp> {
     return ref.watch(authStateChangeProvider).when(
         data: (data) => MaterialApp.router(
               title: 'Welcome to Flutter',
+              debugShowCheckedModeBanner: false,
               theme: ThemeData(
                   fontFamily: 'poppins', scaffoldBackgroundColor: Colors.white),
               routerDelegate: RoutemasterDelegate(routesBuilder: (context) {
@@ -58,8 +60,10 @@ class _MyAppState extends ConsumerState<MyApp> {
                   if (userModel != null) {
                     return loggedInRoute;
                   }
+                } else {
+                  return loggedOutRoute;
                 }
-                return loggedOutRoute;
+                return landingPageRoute;
               }),
               routeInformationParser: const RoutemasterParser(),
             ),
