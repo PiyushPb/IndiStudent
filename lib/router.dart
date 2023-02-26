@@ -1,0 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:indistudent/core/features/home/screen/home_screen.dart';
+import 'package:indistudent/screen/login.dart';
+import 'package:routemaster/routemaster.dart';
+
+final loggedOutRoute = RouteMap(routes: {
+  '/': (_) => const MaterialPage(child: LoginPage()),
+});
+
+final loggedInRoute = RouteMap(routes: {
+  '/': (_) => const MaterialPage(child: HomeScreen()),
+});

@@ -10,7 +10,6 @@ import 'package:indistudent/core/type_defs.dart';
 import 'package:indistudent/models/user_mode.dart';
 import 'package:indistudent/providers/firebase_providors.dart';
 
-
 final authRepositoryProvider = Provider((ref) => AuthRepository(
       firestore: ref.read(fireStoreProvider),
       auth: ref.read(authProvidor),
@@ -32,6 +31,8 @@ class AuthRepository {
 
   CollectionReference get _users =>
       _firestore.collection(FirebaseConstants.usersCollection);
+
+    Stream<User?> get authStateChange => _auth.authStateChanges();
 
   FutureEither<UserModel> signInWithGoogle() async {
     UserCredential userCredential;
