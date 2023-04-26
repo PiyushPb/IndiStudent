@@ -3,7 +3,10 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:indistudent/core/features/auth/controller/auth_controller.dart';
+import 'package:indistudent/core/features/home/screen/widgets/circle_button.dart';
+import 'package:indistudent/core/features/home/screen/widgets/communities.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -12,69 +15,34 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider);
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text(
-                    "indi",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Color(0xFF234DE2),
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const Text(
-                    'Student',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  ),
-                  Expanded(child: Container()),
-                  IconButton(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    iconSize: 25,
-                    icon: const Icon(LineIcons.facebookMessenger),
-                    onPressed: () {
-                      // ...
-                    },
-                  ),
-                ],
-              ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            // pinned: true,
+            backgroundColor: Colors.white,
+            title: SizedBox(
+              width: 100,
+              child: Image.asset('assets/images/logo.png'),
             ),
-            Container(
-                width: double.infinity,
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                // ignore: prefer_const_constructors
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 60,
-                          width: 60,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.pink,
-                            // image: DecorationImage(
-                            //   image: NetworkImage(user!.photoURL!),
-                            //   fit: BoxFit.cover,
-                            // ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text('data'),
-                  ],
-                ),),
-          ],
-        ),
+            centerTitle: false,
+            floating: true,
+            actions: [
+              CircleNavButton(
+                icon: Icons.search,
+                iconSize: 25.0,
+                onPressed: () => print('Search'),
+              ),
+              CircleNavButton(
+                icon: LineIcons.facebookMessenger,
+                iconSize: 25.0,
+                onPressed: () => print('Search'),
+              ),
+            ],
+          ),
+          SliverToBoxAdapter(
+            child: Text('Hello test'),
+          )
+        ],
       ),
     );
   }
