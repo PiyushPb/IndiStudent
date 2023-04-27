@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:indistudent/core/features/home/screen/home_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:indistudent/screen/welcome_screen.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -97,35 +98,100 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       SizedBox(height: 16.0),
                       Text(
-                        "Awards",
+                        "Posts",
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                       SizedBox(height: 8.0),
-                      Text(
-                        data['awards'].toString(),
-                        style: Theme.of(context).textTheme.bodyText2,
+                      StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                        stream: _firestore
+                            .collection("posts")
+                            .where('creatorUid', isEqualTo: user!.uid)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          List<QueryDocumentSnapshot<Map<String, dynamic>>>
+                              postDocs = snapshot.data!.docs;
+                          List<Widget> postWidgets = [];
+                          for (int i = 0; i < postDocs.length; i += 3) {
+                            List<Widget> rowWidgets = [];
+                            for (int j = i;
+                                j < i + 3 && j < postDocs.length;
+                                j++) {
+                              Map<String, dynamic> postData =
+                                  postDocs[j].data();
+                              rowWidgets.add(
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          height: 120,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                  postData['imageUrl']),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 8.0),
+                                        // Text(
+                                        //   postData['body'],
+                                        //   maxLines: 3,
+                                        //   overflow: TextOverflow.ellipsis,
+                                        // ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+                            postWidgets.add(
+                              Row(
+                                children: rowWidgets,
+                              ),
+                            );
+                          }
+                          return Column(
+                            children: postWidgets,
+                          );
+                        },
                       ),
                       SizedBox(height: 16.0),
-                      Text(
-                        "Karma",
-                        style: Theme.of(context).textTheme.subtitle1,
+                      GestureDetector(
+                        onTap: () async {
+                          await _auth.signOut();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => WelcomePage(),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.logout,
+                              color: Colors.red,
+                            ),
+                            SizedBox(width: 8.0),
+                            Text(
+                              "Logout",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .copyWith(color: Colors.red),
+                            ),
+                          ],
+                        ),
                       ),
-                      SizedBox(height: 8.0),
-                      Text(
-                        data['karma'].toString(),
-                        style: Theme.of(context).textTheme.bodyText2,
-                      ),
-                      // SizedBox(height: 16.0),
-                      // Text(
-                      //   "Authenticated",
-                      //   style: Theme.of(context).textTheme.subtitle1,
-                      // ),
-                      // SizedBox(height: 8.0),
-                      // Text(
-                      //   data['isAuthenticated'] ? "Yes" : "No",
-                      //   style: Theme.of(context).textTheme.bodyText2,
-                      // ),
-                      SizedBox(height: 16.0),
                     ],
                   ),
                 ),
@@ -134,38 +200,43 @@ class _ProfilePageState extends State<ProfilePage> {
           );
         },
       ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-          child: GNav(
-            gap: 8,
-            activeColor: Colors.white,
-            iconSize: 24,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            duration: Duration(milliseconds: 800),
-            tabBackgroundColor: Theme.of(context).primaryColor,
-            tabs: tabs,
-            selectedIndex: 3, // set initial selected tab index here
-            onTabChange: (index) {
-              switch (index) {
-                case 0:
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
-                    ),
-                  );
-                  break;
-                case 3:
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProfilePage(),
-                    ),
-                  );
-                  break;
-              }
-            },
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(color: Colors.white, boxShadow: [
+          BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1)),
+        ]),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            child: GNav(
+              gap: 8,
+              activeColor: Colors.white,
+              iconSize: 24,
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              duration: Duration(milliseconds: 800),
+              tabBackgroundColor: Theme.of(context).primaryColor,
+              tabs: tabs,
+              selectedIndex: 3, // set initial selected tab index here
+              onTabChange: (index) {
+                switch (index) {
+                  case 0:
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ),
+                    );
+                    break;
+                  case 3:
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfilePage(),
+                      ),
+                    );
+                    break;
+                }
+              },
+            ),
           ),
         ),
       ),

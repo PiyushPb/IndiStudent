@@ -195,6 +195,14 @@ class HomeScreen extends ConsumerWidget {
                     ),
                   );
                   break;
+                case 1:
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UpdatesScreen(),
+                    ),
+                  );
+                  break;
                 case 3:
                   Navigator.push(
                     context,
