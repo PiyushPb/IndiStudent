@@ -1,5 +1,7 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -37,6 +39,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       final snapshot = await task.whenComplete(() => null);
       final downloadUrl = await snapshot.ref.getDownloadURL();
 
+      // Get current user
+      final currentUser = FirebaseAuth.instance.currentUser;
+
       // Create post in Firestore
       await FirebaseFirestore.instance.collection('posts').add({
         'imageUrl': downloadUrl,
@@ -44,6 +49,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         'likes': {},
         'comments': [],
         'createdAt': DateTime.now(),
+        'creatorUid': currentUser!.uid,
+        'creatorName': currentUser.displayName ?? '',
+        'creatorPhotoUrl': currentUser.photoURL ?? '',
       });
 
       // Go back to previous screen

@@ -20,49 +20,52 @@ class PostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(postData['creatorPhotoUrl']),
-              ),
-              SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    postData['creatorName'],
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    DateFormat.yMMMMd()
-                        .add_jm()
-                        .format(postData['createdAt'].toDate()),
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 10),
-          Image.network(postData['imageUrl']),
-          SizedBox(height: 10),
-          Text(postData['caption']),
-          SizedBox(height: 10),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.thumb_up),
-                onPressed: () {
-                  // TODO: Handle like button press
-                },
-              ),
-              Text('${postData['likesCount']} likes'),
-            ],
-          ),
-        ],
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  backgroundImage: NetworkImage(postData['creatorPhotoUrl']),
+                ),
+                SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      postData['creatorName'],
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      DateFormat.yMMMMd()
+                          .add_jm()
+                          .format(postData['createdAt'].toDate()),
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+            Image.network(postData['imageUrl']),
+            SizedBox(height: 10),
+            Text(postData['caption']),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.thumb_up),
+                  onPressed: () {
+                    // TODO: Handle like button press
+                  },
+                ),
+                Text('${postData['likesCount']} likes'),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
