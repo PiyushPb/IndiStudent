@@ -46,7 +46,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       await FirebaseFirestore.instance.collection('posts').add({
         'imageUrl': downloadUrl,
         'caption': _caption,
-        'likes': {},
+        'likes': 0,
         'comments': [],
         'createdAt': DateTime.now(),
         'creatorUid': currentUser!.uid,

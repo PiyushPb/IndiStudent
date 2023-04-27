@@ -46,6 +46,7 @@ dependencies:
   line_icons: ^2.0.1
   responsive_sizer: ^3.1.1
   image_picker: ^0.8.7+4
+  google_nav_bar: ^5.0.6
   
 
 dev_dependencies:
